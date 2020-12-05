@@ -2,17 +2,17 @@
 RTL design for the AMBA AHB Master. The list of features that are avialable in AHB Master ( according to the verison ) and their details are given below in a list format.
 
 1. Bus Width
-  - Address Bus
-  - Write Data Bus
-  - Read Data Bus
+    - Address Bus
+    - Write Data Bus
+    - Read Data Bus
 2. Mandatory AHB Master Control Signals
-  - Global Signals
-  - Master Signals
+    - Global Signals
+    - Master Signals
 1. Application Interface Signals
 1. Data Transfers
-  - Single Transfers
-  - Incremental Burst
-  - Wrapping Burst
+    - Single Transfers
+    - Incremental Burst
+    - Wrapping Burst
 1. Extended Memory Type
 1. Secure Transfers
 1. Endianess
