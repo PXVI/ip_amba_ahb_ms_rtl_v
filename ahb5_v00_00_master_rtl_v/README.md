@@ -2,9 +2,9 @@
 RTL design for the AMBA AHB Master. The list of features that are avialable in AHB Master ( according to the verison ) and their details are given below in a list format.
 
 1. Bus Width
-    - Address Bus
-    - Write Data Bus
-    - Read Data Bus
+    - Address Bus ( 32 )
+    - Write Data Bus ( 32, 64, 128, 256, 512, 1024 ) 
+    - Read Data Bus ( 32, 64, 128, 256, 512, 1024 ) 
 2. Mandatory AHB Master Control Signals
     - Global Signals
     - Master Signals
