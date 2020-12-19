@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------------
- * Module Name  :
+ * Module Name  : 
  * Date Created : 00:42:20 IST, 06 December, 2020 [ Sunday ]
  *
  * Author       : pxvi
@@ -30,5 +30,61 @@
 
  * ----------------------------------------------------------------------------------- */
 
+// ----------------------------------------------------------------------------------- */
+// Future Modifications :
+// ----------------------------------------------------------------------------------- */
+// 1. Optionally make this combinational circuit interfacable with APB, such that the
+// independent addresses of the designs can be configured.
+// 2. Optionally add internal flops in the design which can be programmed with
+// an external programmer to program the base memory address and an offset for
+// specific slaves.
+// ----------------------------------------------------------------------------------- */
+
 `include "ip_amba_ahb5_decoder_mux_top_defines.vh"
 `include "ip_amba_ahb5_decoder_mux_top_parameters.vh"
+
+module ip_amba_ahb5_decoder_mux_top #(  parameter   N_SLAVES = 1,
+                                                    HADDR_WIDTH = 32,
+                                                    HRDATA_WIDTH = 32    )
+
+                                    (   
+                                        // Inputs
+                                        input [HADDR_WIDTH-1:0] HADDR,
+                                        input [HRDATA_WIDTH-1:0] HDATA_X[N_SLAVES],
+
+                                        // Outputs
+                                        output [N_SLAVES-1:0] HSEL_X,
+                                        output [HRDATA_WIDTH-1:0] HRDATA
+                                    );
+
+    reg [HRDATA_WIDTH-1:0] HRDATA_n;
+    reg [N_SLAVES-1:0] HSEL_X_n;
+
+    integer i;
+
+    always@( * )
+    begin
+        for( i = 0; i < N_SLAVES; i = i + 1 )
+        begin
+            HSEL_X_n[i] = 0;
+        end
+
+        // Decoder for HSEL_X
+
+        // A minimum of one slave will always exist
+        if( ( HADDR >= `AHB_SLAVE_00_BASE_ADDR ) && ( HADDR < ( `AHB_SLAVE_00_BASE_ADDR + `AHB_SLAVE_00_BASE_OFFS ) ) )
+        begin
+            HSEL_X_n[0] = 1;
+        end
+
+        // Multiplexer for HRDATA
+        if( HSEL_X_n[0] == 1'b1 )
+        begin
+            HRDATA_n = HDATA_X[0];
+        end
+    end
+
+    assign HSEL_X[0] = HSEL_X_n[0];
+    assign HRDATA = HRDATA_n;
+
+endmodule

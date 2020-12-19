@@ -1,9 +1,9 @@
 /* -----------------------------------------------------------------------------------
  * Module Name  :
- * Date Created : 00:41:52 IST, 06 December, 2020 [ Sunday ]
+ * Date Created : 00:23:50 IST, 19 December, 2020 [ Saturday ]
  *
  * Author       : pxvi
- * Description  : AHB5 decoder multiplexor's rtl defines
+ * Description  :
  * -----------------------------------------------------------------------------------
 
    MIT License
@@ -30,20 +30,22 @@
 
  * ----------------------------------------------------------------------------------- */
 
-// Basic fixed address for the decoding slaves
-// - Addresses will be 1KB aligned and hence all the addresses will have
-// a base address with lower 10 bits set to 0
-// - Additionally a base offset is provided for deciding the range of the
-// address space
+// Make Sure You Have Set The $WORK_HOME Path to the VIP
 
-// Slave 00 ( Address : Base to Base+1K )
-    `define AHB_SLAVE_00_BASE_ADDR          'h00_00_04_00
-    `define AHB_SLAVE_00_BASE_OFFS          'h00_00_00_01
+// Compile List
 
-// Slave 01 ( Address : Base to Base+2K )
-    `define AHB_SLAVE_01_BASE_ADDR          'h00_00_05_00
-    `define AHB_SLAVE_01_BASE_OFFS          'h00_00_00_02
+// If the UVM Path Can't be given directly
+//+incdir+$WORK_HOME/sim_run/uvm_files/
+// else
+//+incdir+$UVM_PATH/
 
-// Slave 02 ( Address : Base to Base+4K )
-    `define AHB_SLAVE_02_BASE_ADDR          'h00_00_07_00
-    `define AHB_SLAVE_02_BASE_OFFS          'h00_00_00_04
++incdir+$IP_AMBA_AHB_MASTER_HOME/common/
++incdir+$IP_AMBA_AHB_MASTER_HOME/top/
+
++incdir+$IP_AMBA_AHB_SLAVE_HOME/common/
++incdir+$IP_AMBA_AHB_SLAVE_HOME/top/
+
++incdir+$IP_AMBA_AHB_DEC_MUX_HOME/common/
++incdir+$IP_AMBA_AHB_DEC_MUX_HOME/top/
+
+// User Specific Defines

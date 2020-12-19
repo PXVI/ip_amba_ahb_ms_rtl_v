@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------------------
 # Module Name  :
-# Date Created : 00:23:50 IST, 06 December, 2020 [ Sunday ]
+# Date Created : 00:23:50 IST, 19 December, 2020 [ Saturday ]
 #
 # Author       : pxvi
 # Description  :
@@ -36,11 +36,11 @@
 
 TESTNAME?=NO_TEST
 
-FILENAME?=./ip_amba_ahb5_all_comp_testbench.sv
+FILENAME?=./../top/ip_amba_ahb5_decoder_mux_top.v
 
 COMPILE_FILELIST?=./comp_filelist/compile_filelist.list
 
-TOP_NAME?=ip_amba_ahb5_all_comp_testbench
+TOP_NAME?=ip_amba_ahb5_decoder_mux_top
 
 ifdef $(DO_FILE)
 DO_CMD= -do $(DO_FILE)
@@ -56,15 +56,6 @@ WALL_ARG=-Wall
 else
 WALL__ARG=
 endif
-
-ifeq ($(DUMP),1)
-DUMP_ARG=+define+GEN_DUMP
-else
-endif
-
-# Compilie Time Arguments
-# --------------------------------------------
-COMP_ARGS=$(DUMP_ARG)
 
 # **********************
 # Labels Declarations
@@ -95,7 +86,6 @@ comp:
 	-64 \
 	-work ./work \
 	+acc \
-	$(COMP_ARGS) \
 	-l compile.log \
 	-sv \
 	-vopt \
