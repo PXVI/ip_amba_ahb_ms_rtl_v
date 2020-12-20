@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------------
- * Module Name  : 
+ * Module Name  : ip_amba_ahb5_decoder_mux_top
  * Date Created : 00:42:20 IST, 06 December, 2020 [ Sunday ]
  *
  * Author       : pxvi
@@ -51,9 +51,13 @@ module ip_amba_ahb5_decoder_mux_top #(  parameter   N_SLAVES = 1,
                                         // Inputs
                                         input [HADDR_WIDTH-1:0] HADDR,
                                         input [HRDATA_WIDTH-1:0] HDATA_X[N_SLAVES],
+                                        input [N_SLAVES-1:0] HREADYOUT, // From Slaves
+                                        input [N_SLAVES-1:0] HRESP, // From Slaves
 
                                         // Outputs
                                         output [N_SLAVES-1:0] HSEL_X,
+                                        output [N_SLAVES-1:0] HREADY_X, // To Master
+                                        output [N_SLAVES-1:0] HRESP_X, // To Master
                                         output [HRDATA_WIDTH-1:0] HRDATA
                                     );
 
@@ -84,7 +88,11 @@ module ip_amba_ahb5_decoder_mux_top #(  parameter   N_SLAVES = 1,
         end
     end
 
+    // Slave 0
     assign HSEL_X[0] = HSEL_X_n[0];
+    assign HREADY_X[0] = HREADYOUT[0];
+    assign HRESP_X[0] = HRESP[0];
+
     assign HRDATA = HRDATA_n;
 
 endmodule

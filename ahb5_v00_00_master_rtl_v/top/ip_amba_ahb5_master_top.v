@@ -1,5 +1,5 @@
 /* -----------------------------------------------------------------------------------
- * Module Name  :
+ * Module Name  : ip_amba_ahb5_master_v00_00_top
  * Date Created : 00:30:38 IST, 06 December, 2020 [ Sunday ]
  *
  * Author       : pxvi
@@ -30,5 +30,43 @@
 
  * ----------------------------------------------------------------------------------- */
 
-`include "ip_amba_ahb5_master_top_defines.vh"
-`include "ip_amba_ahb5_master_top_parameters.vh"
+`include "ip_amba_ahb5_master_v00_00_top_defines.vh"
+`include "ip_amba_ahb5_master_v00_00_top_parameters.vh"
+
+module ip_amba_ahb5_master_v00_00_top   #(  parameter   HADDR_WIDTH = 32,
+                                                        HDATA_WIDTH = 32 // Supported data widths are 32, 64, 128, 256, 512 and 1024
+                                        )
+                                        (   
+                                            // Global SIgnals
+                                            input HRESETn,
+                                            input HCLK,
+
+                                            // Inputs
+                                            input HREADY, // Transfer Response
+                                            input HRESP, // Transfer Response
+                                            input [HDATA_WIDTH-1:0] HRDATA, // Data
+
+                                            // Outputs
+                                            output [HADDR_WIDTH-1:0] HADDR, // Address & Control
+                                            output HWRITE, // Address & Control
+                                            output [2:0] HSIZE, // Address & Control
+                                            output [2:0] HBURST, // Address & Control
+                                            output [3:0] HPROT, // Address & Control
+                                            output [1:0] HTRANS, // Address & Control
+                                            output HMASTLOCK, // Address & Control
+                                            output [HDATA_WIDTH-1:0] HWDATA, // Data
+
+                                            // Application Layer Inputs
+                                            input [HDATA_WIDTH-1:0] app_write_data_bus,
+                                            input app_rw_data_txn,
+                                            input [HADDR_WIDTH-1:0] app_rw_addr,
+                                            input app_begin_new_txn_addr_phase,
+                                            input app_terminate_txn,
+                                            // Application Layer Outputs
+                                            output app_ready_for_new_txn_addr_phase,
+                                            output app_read_data_ready, // There is no received data handshake between M & S. So it is advised to use a recieve buffer in master for read data.
+                                            output [HDATA_WIDTH-1:0] app_read_data_bus,
+                                            output app_read_error
+                                        );
+
+endmodule
